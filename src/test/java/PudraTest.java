@@ -1,33 +1,50 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class PudraTest {
 
     WebDriver driver;
+    PudraPage page;
 
-    @Test
-    public void openPage() {
-        // TODO GIVEN
+    @Before
+    public void beforeMethod(){
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        String url = "https://pudra.by/";
-        String xpath = "//div[@class='navbar-free-shipping-title']";
-        String expected = "Стань постоянным клиентом и получай кешбэк от покупок до 30%";
+        driver = new ChromeDriver();
+        page = new PudraPage(driver);
+        driver.get(page.URL);
+    }
 
-        // TODO WHEN
-        driver.get(url);
-        By byXpath = By.xpath(xpath);
-        WebElement element = driver.findElement(byXpath);
-        Util.waiter();
-        String actual = element.getText();
-
-        // TODO THEN
-        Assert.assertEquals(expected, actual);
+    @After
+    public void afterMethod(){
         driver.quit();
     }
+
+    @Test
+    public void searchProduct() {
+
+        // TODO WHEN
+        page.fillSearchInputAndSend("крем для рук");
+        String actual = page.getResults();
+
+
+        // TODO THEN
+        Assert.assertEquals(page.RESULT_SEARCH_TEXT, actual);
+    }
+    @Test
+    public void checkProduct() {
+
+        // TODO WHEN
+        page.fillSearchInputAndSend("крем для рук");
+        String actual = page.checkProductCode();
+
+        // TODO THEN
+        Assert.assertEquals(page.RESULT_PRODUCT_CODE, actual);
+    }
+
+
 }
