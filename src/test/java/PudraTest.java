@@ -25,6 +25,16 @@ public class PudraTest {
     }
 
     @Test
+    public void openPage() {
+
+        // TODO WHEN
+        String actual = page.getPage();
+
+
+        // TODO THEN
+        Assert.assertEquals(page.RESULT_PAGE, actual);
+    }
+    @Test
     public void searchProduct() {
 
         // TODO WHEN

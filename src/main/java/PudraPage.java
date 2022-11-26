@@ -8,6 +8,9 @@ public class PudraPage {
 
     WebDriver driver;
     public final String URL = "https://aloespace.by/";
+
+    private String xpathPage = "//div[@id='sw_dropdown_914']";
+
     private String xpathSearchName = "//input[@id='search_input']";
     private String xpathButtonSearch = "//button[@class='ty-search-magnifier']";
     private String xpathResults = "//a[@class='product__title']";
@@ -24,6 +27,8 @@ public class PudraPage {
     private String xpathEncorrectDate = "//div[@class='ty-login-form__wrong-credentials-container']";
     private String xpathMyProfile = "//li[@class='ty-account-info__item  ty-account-info__name ty-dropdown-box__item']";
 
+    public final String RESULT_PAGE = "КАТАЛОГ КОСМЕТИКИ";
+
     public final String RESULT_SEARCH_TEXT = "Крем для рук FarmStay с черным жемчугом Hand Cream Black Pearl - 100 гр";
     public final String RESULT_PRODUCT_CODE = "J0001S";
 
@@ -36,6 +41,12 @@ public class PudraPage {
 
     public PudraPage(WebDriver driver){
         this.driver = driver;
+    }
+
+    public String getPage() {
+        By byPage = By.xpath(xpathPage);
+        WebElement elementPage = driver.findElement(byPage);
+        return elementPage.getText();
     }
 
     public void printSearch(String name) {
