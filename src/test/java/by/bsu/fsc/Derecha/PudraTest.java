@@ -1,3 +1,10 @@
+package by.bsu.fsc.Derecha;
+
+import by.bsu.fsc.Derecha.domain.SearchData;
+import by.bsu.fsc.Derecha.domain.User;
+import by.bsu.fsc.Derecha.pages.BasePage;
+import by.bsu.fsc.Derecha.pages.PudraPage;
+import by.bsu.fsc.Derecha.steps.PudraStep;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
@@ -10,12 +17,14 @@ public class PudraTest {
 
     WebDriver driver;
     PudraPage page;
+    PudraStep step;
 
     @Before
     public void beforeMethod(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         page = new PudraPage(driver);
+        step = new PudraStep(driver);
         driver.get(page.URL);
     }
 
@@ -38,7 +47,7 @@ public class PudraTest {
     public void searchProduct() {
 
         // TODO WHEN
-        page.fillSearchInputAndSend("крем для рук");
+        page.fillSearchInputAndSend(SearchData.SEARCH_PRODUCT);
         String actual = page.getResults();
 
 
@@ -59,7 +68,7 @@ public class PudraTest {
     public void emptyFildsRegistr() {
 
         // TODO WHEN
-        page.checkEmptyFields();
+        step.checkEmptyFields();
         String actual = page.findErrorEmailRequire();
         String actualPsw = page.findErrorPasswordRequire();
 
@@ -69,9 +78,11 @@ public class PudraTest {
     }
     @Test
     public void EncorrectValue() {
+        String login = User.generateEncorrectLogin();
+        String psw = User.generateEncorrectPsw();
 
         // TODO WHEN
-        page.SubmitDate("lala@gmail.com", "01234");
+        step.SubmitDate(login, psw);
         String actual = page.findErrorMessageEncorrectDate();
 
 
@@ -82,11 +93,11 @@ public class PudraTest {
     public void CorrectValue() {
 
         // TODO WHEN
-        page.SubmitDate(page.CORRECT_LOGIN , page.CORRECT_PSW);
+        step.SubmitDate(User.CORRECT_LOGIN , User.CORRECT_PSW);
         page.clickProfileBtn();
         String actual = page.findMyProfile();
 
         // TODO THEN
-        Assert.assertEquals(page.CORRECT_RESULTS, actual);
+        Assert.assertEquals(User.CORRECT_RESULTS, actual);
     }
 }

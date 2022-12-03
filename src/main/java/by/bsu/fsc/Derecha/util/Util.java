@@ -1,3 +1,5 @@
+package by.bsu.fsc.Derecha.util;
+
 public class Util {
     public static void waiter() {
         try {

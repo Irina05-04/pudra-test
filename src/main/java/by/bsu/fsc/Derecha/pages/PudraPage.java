@@ -1,13 +1,14 @@
+package by.bsu.fsc.Derecha.pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class PudraPage {
+public class PudraPage extends BasePage {
 
     WebDriver driver;
-    public final String URL = "https://aloespace.by/";
 
     private String xpathPage = "//div[@id='sw_dropdown_914']";
 
@@ -35,9 +36,6 @@ public class PudraPage {
     public final String RESULT_ERROR_MAIL_REQUIRE = "Поле E-mail обязательное.";
     public final String RESULT_ERROR_PSW_REQUIRE = "Поле Пароль обязательное.";
     public final String RESULT_ENCORRECT_DATE = "Вы ввели неверный логин или пароль. Пожалуйста, попробуйте еще раз.";
-    public final String CORRECT_LOGIN = "irisha.dieriecha@mail.ru";
-    public final String CORRECT_PSW = "1z2x3c4v5b6n";
-    public final String CORRECT_RESULTS = "Ирина Дереча";
 
     public PudraPage(WebDriver driver){
         this.driver = driver;
@@ -55,8 +53,7 @@ public class PudraPage {
         elementInputName.sendKeys(name);
     }
     public void selectButtonSearch(){
-        By byButtonSearch = By.xpath(xpathButtonSearch);
-        WebElement elementButtonSearch = driver.findElement(byButtonSearch);
+        WebElement elementButtonSearch = findElementByXpath(xpathButtonSearch);
         elementButtonSearch.click();
     }
     public void fillSearchInputAndSend(String name){
@@ -98,14 +95,7 @@ public class PudraPage {
         WebElement elementSubmitForm = driver.findElement(bySubmitForm);
         elementSubmitForm.click();
     }
-    public void goLogIn() {
-        clickProfileBtn();
-        clickEnterBtn();
-    }
-    public void checkEmptyFields() {
-        goLogIn();
-        clickEnterSubmit();
-    }
+
     public String findErrorEmailRequire() {
         By byErrorMailRequire = By.xpath(xpathErrorMailRequire);
         WebElement elementErrorMailRequire = driver.findElement(byErrorMailRequire);
@@ -127,12 +117,7 @@ public class PudraPage {
         WebElement elementPswInput = driver.findElement(byPswInput);
         elementPswInput.sendKeys(password);
     }
-    public void SubmitDate(String login, String password) {
-        goLogIn();
-        printLogin(login);
-        printPsw(password);
-        clickEnterSubmit();
-    }
+
     public String findErrorMessageEncorrectDate(){
         By byErrorMessageEncorrectDate = By.xpath(xpathEncorrectDate);
         WebElement elementErrorMessageEncorrectDate = driver.findElement(byErrorMessageEncorrectDate);
