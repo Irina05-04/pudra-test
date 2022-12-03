@@ -53,7 +53,8 @@ public class PudraPage extends BasePage {
         elementInputName.sendKeys(name);
     }
     public void selectButtonSearch(){
-        WebElement elementButtonSearch = findElementByXpath(xpathButtonSearch);
+        By byButtonSearch = By.xpath(xpathButtonSearch);
+        WebElement elementButtonSearch = driver.findElement(byButtonSearch);
         elementButtonSearch.click();
     }
     public void fillSearchInputAndSend(String name){
